@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PhotoShowcaseContainer from './Components/PhotoShowcase/PhotoShowcaseContainer';
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Pagina Paulaner!</h1>
-        </header>
-      </div>
+      <PhotoShowcaseContainer imgRenderStep={100} interval={6000}/>
     );
   }
 }
