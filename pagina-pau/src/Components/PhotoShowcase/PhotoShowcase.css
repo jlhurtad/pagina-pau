@@ -1,7 +1,4 @@
 .photosCanvas {
     background-color: pink;
-}
-
-.hidden {
-    display: none;
+    position: absolute;
 }

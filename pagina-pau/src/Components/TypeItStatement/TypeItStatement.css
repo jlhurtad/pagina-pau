@@ -1,0 +1,9 @@
+.type-it  {
+    position: absolute;
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 0.3em;
+    font-family: 'Andale Mono', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2em;
+    color: white;
+}
