@@ -1,3 +1,4 @@
 .App {
+  cursor: url("./cat_cursor.gif"), grab;
   background: pink;
 }

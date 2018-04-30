@@ -1,14 +1,15 @@
-import img1 from './img1.jpg';
-import img2 from './img2.jpg';
-import img3 from './img3.jpg';
-import img4 from './img4.jpg';
-import img5 from './img5.jpg';
-import img6 from './img6.jpg';
-import img7 from './img7.jpg';
-import img8 from './img8.jpg';
-import img9 from './img9.png';
-import img10 from './img10.jpg';
+import img1 from './1.jpg';
+import img2 from './2.jpg';
+import img3 from './3.jpg';
+import img4 from './4.jpg';
+import img5 from './5.jpg';
+import img6 from './6.jpg';
+import img7 from './7.jpg';
+import img8 from './8.jpg';
+import img9 from './9.png';
+import img10 from './10.jpg';
 
-const PHOTO_FILES = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
+const PHOTO_FILES = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
+// const PHOTO_FILES = [img10];
 
 export default PHOTO_FILES;

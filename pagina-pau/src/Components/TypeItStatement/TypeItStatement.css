@@ -1,4 +1,5 @@
 .type-it  {
+    cursor: url("../../cat_cursor.gif"), grab;
     position: absolute;
     margin-top: 1em;
     margin-left: 1em;

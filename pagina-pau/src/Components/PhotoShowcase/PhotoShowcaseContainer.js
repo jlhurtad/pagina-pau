@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import loadImage from 'blueimp-load-image';
 import './PhotoShowcase.css'
 import PHOTO_FILES from './PhotoFiles/PhotoFiles.js'
 
@@ -8,7 +9,18 @@ class PhotoShowcaseContainer extends Component {
         super(props);
 
         this.imgRenderStep = props.imgRenderStep;
-        this.interval = props.interval
+        this.interval = props.interval;
+        this.imgScaler = props.imgScaler || 1;
+        this.mobileImgScaler = props.mobileImgScaler || this.imgScaler;
+        this.images = [];
+
+        PHOTO_FILES.forEach(photoFile => {
+            loadImage(photoFile, (newImage) => {
+                this.images.push(newImage);
+            }, {
+                orientation: true
+            });
+        });
 
         this.state = {
             ImagesDrawn: [],
@@ -33,35 +45,32 @@ class PhotoShowcaseContainer extends Component {
         if (this.isMobileOrTablet()) {
             canvas.ontouchmove = (event) => {
                 event.preventDefault();
-                this.renderImage(PHOTO_FILES, event.touches[0].clientX, event.touches[0].clientY, ctx);
+                this.renderImage(PHOTO_FILES, event.touches[0].clientX, event.touches[0].clientY, this.mobileImgScaler, ctx);
             }
 
         } else {
             canvas.onmousemove = (event) => {
-                this.renderImage(PHOTO_FILES, event.clientX, event.clientY, ctx);
+                this.renderImage(PHOTO_FILES, event.clientX, event.clientY, this.imgScaler, ctx);
             }
         }
 
     }
 
-    renderImage(photoFiles, positionX, positionY, context) {
+    renderImage(photoFiles, positionX, positionY, scale, context) {
 
-        let imgToRender = new Image();
+        let numberOfImages = this.images.length;
 
-        imgToRender.onload = (event) => {
+        let imageIndex = Math.floor(Math.random() * numberOfImages);
 
-            if (this.shouldRenderImage(positionX, positionY)) {
-                this.drawImage(imgToRender, positionX, positionY, context);
-            }
-        }
+        let imgToRender = this.images[imageIndex];
 
-        let numberOfPhotos = photoFiles.length;
+        if (this.shouldRenderImage(positionX, positionY) && typeof imgToRender !== 'undefined') {
+            let imageRatio = imgToRender.width / imgToRender.height;
+            let width = imgToRender.width / scale;
+            let height = width / imageRatio;
+            this.drawImage(imgToRender, positionX, positionY, width, height, context);
+         }
 
-        let photoIndex = Math.floor(Math.random() * numberOfPhotos);
-
-        imgToRender.src = photoFiles[photoIndex];
-
-        return imgToRender;
     }
 
     shouldRenderImage(cursorX, cursorY) {
@@ -75,10 +84,10 @@ class PhotoShowcaseContainer extends Component {
         else return false;
     }
 
-    drawImage(image, postionX, positionY, canvasContext) {
+    drawImage(image, postionX, positionY, width, height, canvasContext) {
         let imagesDrawn = this.state.ImagesDrawn.slice();
 
-        canvasContext.drawImage(image, postionX - 160, positionY - 90, 320, 180);
+        canvasContext.drawImage(image, postionX - width / 2, positionY - height / 2, width, height);
         imagesDrawn.push(image);
         this.setState((prevState, props) => {
             return {
